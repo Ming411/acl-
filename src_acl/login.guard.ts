@@ -1,37 +1,31 @@
-import { JwtService } from '@nestjs/jwt';
 import {
   CanActivate,
   ExecutionContext,
-  Inject,
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
 import { Request } from 'express';
 import { Observable } from 'rxjs';
 
+// 默认的 session 里没有 user 的类型，所以需要扩展
+declare module 'express-session' {
+  interface Session {
+    user: {
+      username: string;
+    };
+  }
+}
+
 @Injectable()
 export class LoginGuard implements CanActivate {
-  @Inject(JwtService)
-  private jwtService: JwtService;
-
   canActivate(
     context: ExecutionContext,
   ): boolean | Promise<boolean> | Observable<boolean> {
     const request: Request = context.switchToHttp().getRequest();
-
-    const authorization = request.headers.authorization;
-
-    if (!authorization) {
+    // 用户检测用户是否已经登录
+    if (!request.session?.user) {
       throw new UnauthorizedException('用户未登录');
     }
-
-    try {
-      const token = authorization.split(' ')[1];
-      const data = this.jwtService.verify(token);
-
-      return true;
-    } catch (e) {
-      throw new UnauthorizedException('token 失效，请重新登录');
-    }
+    return true;
   }
 }

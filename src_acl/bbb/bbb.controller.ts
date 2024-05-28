@@ -11,7 +11,7 @@ import {
 import { BbbService } from './bbb.service';
 import { CreateBbbDto } from './dto/create-bbb.dto';
 import { UpdateBbbDto } from './dto/update-bbb.dto';
-import { LoginGuard } from 'src/login.guard';
+import { LoginGuard } from 'src_acl/login.guard';
 
 @Controller('bbb')
 export class BbbController {

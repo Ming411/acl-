@@ -5,5 +5,6 @@ import { UserController } from './user.controller';
 @Module({
   controllers: [UserController],
   providers: [UserService],
+  exports: [UserService], // 提供给PermissionGuard使用
 })
 export class UserModule {}

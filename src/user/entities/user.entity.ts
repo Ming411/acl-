@@ -1,13 +1,4 @@
-import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  JoinTable,
-  ManyToMany,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from 'typeorm';
-import { Permission } from './permission.enity';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class User {
@@ -23,16 +14,4 @@ export class User {
     length: 50,
   })
   password: string;
-
-  @CreateDateColumn()
-  createTime: Date;
-
-  @UpdateDateColumn()
-  updateTime: Date;
-
-  @ManyToMany(() => Permission)
-  @JoinTable({
-    name: 'user_permission_relation',
-  })
-  permissions: Permission[];
 }

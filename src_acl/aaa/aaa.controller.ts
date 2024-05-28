@@ -12,8 +12,8 @@ import {
 import { AaaService } from './aaa.service';
 import { CreateAaaDto } from './dto/create-aaa.dto';
 import { UpdateAaaDto } from './dto/update-aaa.dto';
-import { LoginGuard } from 'src/login.guard';
-import { PermissionGuard } from 'src/permission.guard';
+import { LoginGuard } from 'src_acl/login.guard';
+import { PermissionGuard } from 'src_acl/permission.guard';
 
 @Controller('aaa')
 export class AaaController {
